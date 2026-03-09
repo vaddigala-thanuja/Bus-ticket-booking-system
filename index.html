@@ -1,10 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Bus Ticket Booking System</title>
+    <meta charset="UTF-8">
+    <title>SBIC - Online Bus Booking</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #fdfdfd; color: #333; }
+        .page { display: none; padding: 60px; min-height: 100vh; position: relative; box-sizing: border-box; }
+        .active { display: block; }
+
+        /* PAGE 1: WELCOME */
+        .welcome-section { display: flex; flex-direction: column; align-items: flex-start; }
+        .welcome-section p { font-size: 22px; margin: 0; color: #666; }
+        .welcome-section h1 { font-size: 70px; color: #004a99; margin: 0; font-weight: 800; } /* Big SBIC */
+        .welcome-section h2 { font-size: 50px; color: #222; margin: 5px 0; } /* Big Bus Ticket Booking */
+        .welcome-section .tagline { font-size: 18px; color: #888; margin-top: 15px; }
+
+        /* BUTTONS */
+        .btn-main { position: fixed; bottom: 40px; right: 40px; padding: 18px 40px; background: #27ae60; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 20px; font-weight: bold; }
+        .top-nav { position: absolute; top: 30px; right: 40px; }
+        .top-nav button { margin-left: 10px; padding: 10px 20px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: white; }
+
+        /* FORMS */
+        .mandatory::after { content: " *"; color: red; }
+        input[type="text"], input[type="tel"], input[type="email"] { 
+            width: 350px; padding: 12px; margin: 10px 0; display: block; border: 1.5px solid #ddd; border-radius: 6px; 
+        }
+
+        /* SEATS */
+        .seat-grid { display: grid; grid-template-columns: repeat(4, 55px); gap: 12px; margin: 30px 0; }
+        .seat { width: 55px; height: 55px; border: 1px solid #aaa; text-align: center; line-height: 55px; cursor: pointer; border-radius: 8px; font-weight: bold; }
+        .available { background: #3498db; color: white; } /* Blue */
+        .booked { background: #e74c3c; color: white; cursor: not-allowed; } /* Red */
+        .selected { background: #2ecc71; color: white; } /* Green */
+
+        /* TICKET BOX */
+        .ticket { border: 3px dashed #444; padding: 30px; width: 450px; background: white; line-height: 1.8; }
+    </style>
 </head>
 <body>
-    <h1>Book your journey easily and travel comfortably to your destinations</h1>
-    <button onclick="location.href='login.html'">Get Started</button>
+
+    <div id="page1" class="page active">
+        <div class="welcome-section">
+            <p>Welcome to</p>
+            <h1>SBIC</h1>
+            <h2>Bus Ticket Booking</h2>
+            <p class="tagline">Book your journey easily and travel comfortably to your destination.</p>
+        </div>
+        <button class="btn-main" onclick="goTo(2)">Get Started</button>
+    </div>
+
+    <div id="page2" class="page">
+        <div class="top-nav"><button onclick="goTo(1)">Back</button></div>
+        <h3>Plan your journey and choose your own beautiful destination with comfort.</h3>
+        <label class="mandatory">Name</label>
+        <input type="text" id="custName" placeholder="Your Full Name">
+        <label class="mandatory">Phone Number</label>
+        <input type="tel" id="custPhone" placeholder="Mobile Number">
+        <label>Email (Optional)</label>
+        <input type="email" id="custEmail" placeholder="Email Address">
+        <button class="btn-main" onclick="goTo(3)">Proceed to Login</button>
+    </div>
+
+    <div id="page3" class="page">
+        <div class="top-nav">
+            <button onclick="goTo(2)">Back</button>
+            <button onclick="location.reload()">Logout</button>
+        </div>
+        <h2>Select Your Destination (From Mumbai)</h2>
+        <div style="font-size: 18px; line-height: 2.5;">
+            <label><input type="radio" name="dest" value="Pune" data-km="150"> Pune (150 km)</label><br>
+            <label><input type="radio" name="dest" value="Nasik" data-km="300"> Nasik (300 km)</label><br>
+            <label><input type="radio" name="dest" value="Aurangabad" data-km="470"> Aurangabad (470 km)</label><br>
+            <label><input type="radio" name="dest" value="Solapur" data-km="690"> Solapur (690 km)</label><br>
+            <label><input type="radio" name="dest" value="Hyderabad" data-km="990"> Hyderabad (990 km)</label><br>
+            <label><input type="radio" name="dest" value="Bangalore" data-km="1580"> Bangalore (1580 km)</label>
+        </div>
+        <button class="btn-main" onclick="goTo(4)">Next</button>
+    </div>
+
+    <div id="page4" class="page">
+        <div class="top-nav">
+            <button onclick="goTo(3)">Back</button>
+            <button onclick="location.reload()">Logout</button>
+        </div>
+        <h2>View Available Seats</h2>
+        <p>Blue: Available | Red: Booked | Green: Selected (Max 6)</p>
+        <div class="seat-grid" id="seatGrid"></div>
+        <button class="btn-main" onclick="goTo(5)">Confirm Selection</button>
+    </div>
+
+    <div id="page5" class="page">
+        <div class="top-nav">
+            <button onclick="adminLogin()">Admin Info</button>
+            <button onclick="goTo(4)">Back</button>
+            <button onclick="location.reload()">Logout</button>
+        </div>
+        <h2>Booking Confirmation</h2>
+        <div class="ticket" id="finalTicket"></div>
+        <button style="margin-top: 20px;" onclick="alert('Searching for Bus Location...')">View Bus Location</button>
+        <button style="color: red; display: block; margin-top: 15px;" onclick="alert('Booking Cancelled within 2 hours.')">Cancel Seat</button>
+        <h2 style="text-align: center; margin-top: 50px;">HAVE A WONDERFUL JOURNEY</h2>
+    </div>
+
+    <script>
+        let selectedSeats = [];
+
+        function goTo(num) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page' + num).classList.add('active');
+            if(num === 4) createSeats();
+            if(num === 5) showTicket();
+        }
+
+        function createSeats() {
+            const grid = document.getElementById('seatGrid');
+            grid.innerHTML = '';
+            for(let i=1; i<=40; i++) {
+                let div = document.createElement('div');
+                div.className = (i % 9 === 0) ? 'seat booked' : 'seat available';
+                div.innerText = i;
+                div.onclick = function() {
+                    if(this.classList.contains('booked')) return;
+                    if(selectedSeats.length >= 6 && !this.classList.contains('selected')) return;
+                    
+                    this.classList.toggle('selected');
+                    this.classList.toggle('available');
+                    let n = this.innerText;
+                    if(selectedSeats.includes(n)) selectedSeats = selectedSeats.filter(item => item !== n);
+                    else selectedSeats.push(n);
+                };
+                grid.appendChild(div);
+            }
+        }
+
+        function showTicket() {
+            const name = document.getElementById('custName').value;
+            const dest = document.querySelector('input[name="dest"]:checked').value;
+            const km = document.querySelector('input[name="dest"]:checked').getAttribute('data-km');
+            document.getElementById('finalTicket').innerHTML = `
+                <strong>SBIC ONLINE TICKET</strong><hr>
+                <b>Passenger:</b> ${name}<br>
+                <b>To:</b> ${dest} (${km} km from Mumbai)<br>
+                <b>Seats:</b> ${selectedSeats.join(', ')}<br>
+                <b>Amount Paid:</b> ₹${selectedSeats.length * 500}
+            `;
+        }
+
+        function adminLogin() {
+            const pass = prompt("Enter Admin Password:");
+            if(pass === "123ABCDZ") alert("Admin: Rajesh | Phone: 9876543210 | Email: admin@sbic.com");
+            else alert("Invalid Password!");
+        }
+    </script>
 </body>
 </html>
