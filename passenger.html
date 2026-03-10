@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Passenger Details</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(120deg,#f7c6a4,#f1a05d);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.container{
+background:white;
+width:85%;
+height:75%;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+padding:40px;
+position:relative;
+}
+
+h1{
+color:#d35400;
+}
+
+.subtitle{
+color:#555;
+margin-bottom:20px;
+}
+
+label{
+display:block;
+margin-top:10px;
+}
+
+input,select{
+width:300px;
+padding:8px;
+margin-top:5px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+.price-box{
+margin-top:20px;
+background:#f8e3d3;
+padding:15px;
+width:300px;
+border-radius:10px;
+}
+
+.top-buttons{
+position:absolute;
+top:20px;
+right:20px;
+}
+
+.top-buttons button{
+margin-left:10px;
+background:#e76f51;
+color:white;
+border:none;
+padding:8px 18px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.pay{
+position:absolute;
+bottom:30px;
+right:40px;
+background:#e76f51;
+color:white;
+border:none;
+padding:10px 25px;
+border-radius:20px;
+cursor:pointer;
+}
+
+</style>
+
+<script>
+
+var seatsSelected = 2; // Example: replace with actual seat count
+var pricePerSeat = 500;
+
+window.onload=function(){
+
+document.getElementById("seatCount").innerText = seatsSelected;
+document.getElementById("totalAmount").innerText = seatsSelected * pricePerSeat;
+
+}
+
+function validatePassenger(){
+
+var name=document.getElementById("name").value;
+var age=document.getElementById("age").value;
+var gender=document.getElementById("gender").value;
+var phone=document.getElementById("phone").value;
+
+if(name=="" || age=="" || gender=="" || phone==""){
+alert("Please enter the details.");
+return;
+}
+
+var phonePattern=/^[0-9]{10}$/;
+
+if(!phonePattern.test(phone)){
+alert("Please enter valid phone number.");
+return;
+}
+
+window.location.href="payment.html";
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="top-buttons">
+<button onclick="location.href='seats.html'">Back</button>
+<button onclick="location.href='index.html'">Logout</button>
+</div>
+
+<h1>Enter Passenger Details</h1>
+
+<p class="subtitle">Fill the details to proceed for payment</p>
+
+<label>Name</label>
+<input type="text" id="name">
+
+<label>Age</label>
+<input type="number" id="age">
+
+<label>Gender</label>
+<select id="gender">
+<option value="">Select</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+
+<label>Contact Number</label>
+<input type="text" id="phone">
+
+<div class="price-box">
+
+<p>Seats Selected: <span id="seatCount"></span></p>
+
+<p>Price per seat: ₹500</p>
+
+<p><b>Total Amount: ₹ <span id="totalAmount"></span></b></p>
+
+</div>
+
+<button class="pay" onclick="validatePassenger()">Proceed to Payment</button>
+
+</div>
+
+</body>
+</html>
