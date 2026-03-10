@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Login</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:linear-gradient(120deg,#f7c6a4,#f1a05d);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.container{
+background:white;
+width:85%;
+height:75%;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+padding:40px;
+position:relative;
+}
+
+h1{
+color:#e76f51;
+}
+
+h2{
+margin-top:5px;
+}
+
+.form-box{
+margin-top:40px;
+width:300px;
+}
+
+label{
+display:block;
+margin-top:15px;
+}
+
+input{
+width:100%;
+padding:8px;
+margin-top:5px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+.back{
+position:absolute;
+top:20px;
+right:20px;
+background:#e76f51;
+color:white;
+border:none;
+padding:8px 20px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.proceed{
+position:absolute;
+bottom:30px;
+right:40px;
+background:#e76f51;
+color:white;
+border:none;
+padding:10px 25px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.proceed:hover,.back:hover{
+background:#d65a3c;
+}
+
+</style>
+
+<script>
+
+function validateForm(){
+
+var name=document.getElementById("name").value.trim();
+var phone=document.getElementById("phone").value.trim();
+
+if(name=="" || phone==""){
+alert("Please enter name and phone number.");
+return false;
+}
+
+var phonePattern=/^[0-9]{10}$/;
+
+if(!phonePattern.test(phone)){
+alert("Please enter a valid phone number.");
+return false;
+}
+
+window.location.href="destination.html";
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<button class="back" onclick="location.href='index.html'">
+Back
+</button>
+
+<h1>Plan Your Journey</h1>
+<h2>Choose your beautiful destination with comfort</h2>
+
+<div class="form-box">
+
+<label>Name *</label>
+<input type="text" id="name">
+
+<label>Phone Number *</label>
+<input type="text" id="phone">
+
+<label>Email</label>
+<input type="email">
+
+</div>
+
+<button class="proceed" onclick="validateForm()">
+Proceed to Login
+</button>
+
+</div>
+
+</body>
+</html>
