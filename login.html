@@ -7,12 +7,12 @@
 
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
+font-family:Arial;
 background:linear-gradient(120deg,#f7c6a4,#f1a05d);
 height:100vh;
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 }
 
 .container{
@@ -21,20 +21,25 @@ width:85%;
 height:75%;
 border-radius:20px;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
+display:flex;
 padding:40px;
 position:relative;
 }
 
-h1{
+.left{
+width:50%;
+}
+
+.left h1{
 color:#e76f51;
 }
 
-h2{
-margin-top:5px;
+.left p{
+color:#444;
 }
 
 .form-box{
-margin-top:40px;
+margin-top:20px;
 width:300px;
 }
 
@@ -46,15 +51,18 @@ margin-top:15px;
 input{
 width:100%;
 padding:8px;
-margin-top:5px;
 border-radius:5px;
 border:1px solid #ccc;
+}
+
+.right img{
+width:350px;
 }
 
 .back{
 position:absolute;
 top:20px;
-right:20px;
+right:30px;
 background:#e76f51;
 color:white;
 border:none;
@@ -75,32 +83,29 @@ border-radius:20px;
 cursor:pointer;
 }
 
-.proceed:hover,.back:hover{
-background:#d65a3c;
-}
-
 </style>
 
 <script>
 
 function validateForm(){
 
-var name=document.getElementById("name").value.trim();
-var phone=document.getElementById("phone").value.trim();
+var name=document.getElementById("name").value;
+var phone=document.getElementById("phone").value;
 
 if(name=="" || phone==""){
 alert("Please enter name and phone number.");
-return false;
+return;
 }
 
 var phonePattern=/^[0-9]{10}$/;
 
 if(!phonePattern.test(phone)){
 alert("Please enter a valid phone number.");
-return false;
+return;
 }
 
 window.location.href="destination.html";
+
 }
 
 </script>
@@ -111,12 +116,13 @@ window.location.href="destination.html";
 
 <div class="container">
 
-<button class="back" onclick="location.href='index.html'">
-Back
-</button>
+<button class="back" onclick="location.href='index.html'">Back</button>
 
-<h1>Plan Your Journey</h1>
-<h2>Choose your beautiful destination with comfort</h2>
+<div class="left">
+
+<h1>User Login</h1>
+
+<p>Enter your details to continue your journey</p>
 
 <div class="form-box">
 
@@ -131,9 +137,15 @@ Back
 
 </div>
 
-<button class="proceed" onclick="validateForm()">
-Proceed to Login
-</button>
+</div>
+
+<div class="right">
+
+<img src="bus.png">
+
+</div>
+
+<button class="proceed" onclick="validateForm()">Proceed to Login</button>
 
 </div>
 
