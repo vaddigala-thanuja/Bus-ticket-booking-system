@@ -1,7 +1,10 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>Passenger Details</title>
+  <link rel="stylesheet" href="css/payment.css">
+<script src="js/payment.js"></script>
 
 <style>
 
@@ -83,11 +86,37 @@ border-radius:20px;
 cursor:pointer;
 }
 
+/* PAYMENT PANEL */
+
+.payment-panel{
+position:fixed;
+bottom:-350px;
+left:0;
+width:100%;
+background:white;
+padding:20px;
+box-shadow:0 -5px 20px rgba(0,0,0,0.3);
+text-align:center;
+transition:0.5s;
+}
+
+.payment-panel button{
+display:block;
+width:200px;
+margin:10px auto;
+padding:10px;
+border:none;
+background:#e76f51;
+color:white;
+border-radius:10px;
+cursor:pointer;
+}
+
 </style>
 
 <script>
 
-var seatsSelected = 2; // Example: replace with actual seat count
+var seatsSelected = 2;
 var pricePerSeat = 500;
 
 window.onload=function(){
@@ -116,7 +145,17 @@ alert("Please enter valid phone number.");
 return;
 }
 
-window.location.href="payment.html";
+/* SHOW PAYMENT PANEL */
+
+document.getElementById("paymentPanel").style.bottom="0";
+
+}
+
+function paymentSuccess(method){
+
+alert(method + " Payment Successful");
+
+window.location.href="ticket.html";
 
 }
 
@@ -164,6 +203,25 @@ window.location.href="payment.html";
 </div>
 
 <button class="pay" onclick="validatePassenger()">Proceed to Payment</button>
+
+</div>
+
+
+<!-- PAYMENT PANEL -->
+
+<div id="paymentPanel" class="payment-panel">
+
+<h2>Select Payment Method</h2>
+
+<button onclick="paymentSuccess('PhonePe')">PhonePe</button>
+
+<button onclick="paymentSuccess('Google Pay')">Google Pay</button>
+
+<button onclick="paymentSuccess('Paytm')">Paytm</button>
+
+<button onclick="paymentSuccess('Navi')">Navi</button>
+
+<button onclick="paymentSuccess('UPI')">UPI</button>
 
 </div>
 
