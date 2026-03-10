@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Select Destination</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:linear-gradient(120deg,#f7c6a4,#f1a05d);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.container{
+background:white;
+width:85%;
+height:75%;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+padding:40px;
+position:relative;
+}
+
+.title{
+color:#d35400;
+font-size:28px;
+}
+
+.subtitle{
+color:#555;
+margin-bottom:20px;
+}
+
+.locations{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.card{
+border:1px solid #ddd;
+border-radius:10px;
+padding:15px;
+text-align:center;
+cursor:pointer;
+background:#fff;
+transition:0.3s;
+}
+
+.card:hover{
+background:#f8e3d3;
+}
+
+.card input{
+display:none;
+}
+
+.top-buttons{
+position:absolute;
+top:20px;
+right:20px;
+}
+
+.top-buttons button{
+margin-left:10px;
+background:#e76f51;
+color:white;
+border:none;
+padding:8px 18px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.next{
+position:absolute;
+bottom:30px;
+right:40px;
+background:#e76f51;
+color:white;
+border:none;
+padding:10px 25px;
+border-radius:20px;
+cursor:pointer;
+}
+
+</style>
+
+<script>
+
+function validateDestination(){
+
+var selected=document.querySelectorAll('input[name="dest"]:checked');
+
+if(selected.length==0){
+alert("Please select at least one destination.");
+return;
+}
+
+window.location.href="seats.html";
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="top-buttons">
+<button onclick="location.href='login.html'">Back</button>
+<button onclick="location.href='index.html'">Logout</button>
+</div>
+
+<h1 class="title">Select Your Destination</h1>
+
+<p class="subtitle">Choose your journey to travel</p>
+
+<label>Select Boarding Point</label>
+
+<br><br>
+
+<select>
+
+<option>Mumbai Bus Stand</option>
+<option>Pune Bus Stand</option>
+<option>Nashik Bus Stand</option>
+<option>Aurangabad Bus Stand</option>
+<option>Solapur Bus Stand</option>
+<option>Hyderabad Bus Stand</option>
+<option>Bangalore Bus Stand</option>
+
+</select>
+
+<div class="locations">
+
+<label class="card">
+<input type="checkbox" name="dest">
+<h3>Mumbai</h3>
+<p>Starting Point</p>
+</label>
+
+<label class="card">
+<input type="checkbox" name="dest">
+<h3>Pune</h3>
+<p>150 km from Mumbai</p>
+</label>
+
+<label class="card">
+<input type="checkbox" name="dest">
+<h3>Nashik</h3>
+<p>300 km from Mumbai</p>
+</label>
+
+<label class="card">
+<input type="checkbox" name="dest">
+<h3>Aurangabad</h3>
+<p>470 km from Mumbai</p>
+</label>
+
+<label class="card">
+<input type="checkbox" name="dest">
+<h3>Solapur</h3>
+<p>690 km from Mumbai</p>
+</label>
+
+<label class="card">
+<input type="checkbox" name="dest">
+<h3>Hyderabad</h3>
+<p>990 km from Mumbai</p>
+</label>
+
+<label class="card">
+<input type="checkbox" name="dest">
+<h3>Bangalore</h3>
+<p>1580 km from Mumbai</p>
+</label>
+
+</div>
+
+<button class="next" onclick="validateDestination()">Next</button>
+
+</div>
+
+</body>
+</html>
