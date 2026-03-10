@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>View Available Seats</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(120deg,#f7c6a4,#f1a05d);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.container{
+background:white;
+width:85%;
+height:75%;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+padding:40px;
+position:relative;
+}
+
+h1{
+color:#d35400;
+}
+
+.seats{
+display:grid;
+grid-template-columns:repeat(8,1fr);
+gap:10px;
+margin-top:30px;
+}
+
+.seat{
+padding:12px;
+text-align:center;
+border-radius:5px;
+cursor:pointer;
+color:white;
+}
+
+.available{
+background:#3498db;
+}
+
+.booked{
+background:#e74c3c;
+cursor:not-allowed;
+}
+
+.selected{
+background:#2ecc71;
+}
+
+.top-buttons{
+position:absolute;
+top:20px;
+right:20px;
+}
+
+.top-buttons button{
+margin-left:10px;
+background:#e76f51;
+color:white;
+border:none;
+padding:8px 18px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.confirm{
+position:absolute;
+bottom:30px;
+right:40px;
+background:#e76f51;
+color:white;
+border:none;
+padding:10px 25px;
+border-radius:20px;
+cursor:pointer;
+}
+
+</style>
+
+<script>
+
+function toggleSeat(seat){
+
+if(seat.classList.contains("booked")) return;
+
+var selectedSeats=document.querySelectorAll(".seat.selected");
+
+if(!seat.classList.contains("selected") && selectedSeats.length>=6){
+alert("You can select maximum 6 seats only.");
+return;
+}
+
+seat.classList.toggle("selected");
+
+}
+
+function confirmSeats(){
+
+var selected=document.querySelectorAll(".seat.selected");
+
+if(selected.length==0){
+alert("Please select seats.");
+return;
+}
+
+alert("Seats confirmed: "+selected.length);
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="top-buttons">
+<button onclick="location.href='destination.html'">Back</button>
+<button onclick="location.href='index.html'">Logout</button>
+</div>
+
+<h1>View Available Seats</h1>
+
+<div class="seats">
+
+<div class="seat available" onclick="toggleSeat(this)">1</div>
+<div class="seat available" onclick="toggleSeat(this)">2</div>
+<div class="seat booked">3</div>
+<div class="seat available" onclick="toggleSeat(this)">4</div>
+<div class="seat available" onclick="toggleSeat(this)">5</div>
+<div class="seat booked">6</div>
+<div class="seat available" onclick="toggleSeat(this)">7</div>
+<div class="seat available" onclick="toggleSeat(this)">8</div>
+
+<div class="seat available" onclick="toggleSeat(this)">9</div>
+<div class="seat available" onclick="toggleSeat(this)">10</div>
+<div class="seat booked">11</div>
+<div class="seat available" onclick="toggleSeat(this)">12</div>
+<div class="seat available" onclick="toggleSeat(this)">13</div>
+<div class="seat booked">14</div>
+<div class="seat available" onclick="toggleSeat(this)">15</div>
+<div class="seat available" onclick="toggleSeat(this)">16</div>
+
+<div class="seat available" onclick="toggleSeat(this)">17</div>
+<div class="seat available" onclick="toggleSeat(this)">18</div>
+<div class="seat booked">19</div>
+<div class="seat available" onclick="toggleSeat(this)">20</div>
+<div class="seat available" onclick="toggleSeat(this)">21</div>
+<div class="seat booked">22</div>
+<div class="seat available" onclick="toggleSeat(this)">23</div>
+<div class="seat available" onclick="toggleSeat(this)">24</div>
+
+<div class="seat available" onclick="toggleSeat(this)">25</div>
+<div class="seat available" onclick="toggleSeat(this)">26</div>
+<div class="seat booked">27</div>
+<div class="seat available" onclick="toggleSeat(this)">28</div>
+<div class="seat available" onclick="toggleSeat(this)">29</div>
+<div class="seat booked">30</div>
+<div class="seat available" onclick="toggleSeat(this)">31</div>
+<div class="seat available" onclick="toggleSeat(this)">32</div>
+
+<div class="seat available" onclick="toggleSeat(this)">33</div>
+<div class="seat available" onclick="toggleSeat(this)">34</div>
+<div class="seat booked">35</div>
+<div class="seat available" onclick="toggleSeat(this)">36</div>
+<div class="seat available" onclick="toggleSeat(this)">37</div>
+<div class="seat booked">38</div>
+<div class="seat available" onclick="toggleSeat(this)">39</div>
+<div class="seat available" onclick="toggleSeat(this)">40</div>
+
+</div>
+
+<button class="confirm" onclick="confirmSeats()">Confirm Selection</button>
+
+</div>
+
+</body>
+</html>
