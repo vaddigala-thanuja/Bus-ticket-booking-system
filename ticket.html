@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>E-Ticket</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(120deg,#f7c6a4,#f1a05d);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.container{
+background:white;
+width:85%;
+height:80%;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+padding:40px;
+position:relative;
+overflow:auto;
+}
+
+h1{
+color:#d35400;
+}
+
+.ticket-box{
+margin-top:20px;
+background:#f8e3d3;
+padding:20px;
+border-radius:10px;
+width:400px;
+}
+
+.top-buttons{
+position:absolute;
+top:20px;
+right:20px;
+}
+
+.top-buttons button{
+margin-left:10px;
+background:#e76f51;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.cancel-btn{
+margin-top:20px;
+background:#e74c3c;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.3);
+text-align:center;
+}
+
+.popup button{
+margin-top:10px;
+padding:8px 20px;
+border:none;
+background:#e76f51;
+color:white;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* Greeting style */
+
+.greeting{
+margin-top:30px;
+font-size:22px;
+font-weight:bold;
+text-align:center;
+color:#d35400;
+}
+
+</style>
+
+<script>
+
+function closePopup(){
+
+document.getElementById("popup").style.display="none";
+
+}
+
+function cancelSeat(){
+
+alert("Your seat has been cancelled.");
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<!-- PAYMENT SUCCESS POPUP -->
+
+<div id="popup" class="popup">
+
+<h2>Payment Successful</h2>
+
+<p>Your ticket has been booked successfully.</p>
+
+<button onclick="closePopup()">OK</button>
+
+</div>
+
+
+<div class="container">
+
+<div class="top-buttons">
+
+<button onclick="location.href='passenger.html'">Back</button>
+
+<button onclick="location.href='index.html'">Logout</button>
+
+<button onclick="location.href='admin.html'">Admin Info</button>
+
+<button onclick="location.href='location.html'">View Bus Location</button>
+
+</div>
+
+
+<h1>E-Ticket Generated</h1>
+
+<div class="ticket-box">
+
+<h3>Passenger Details</h3>
+
+<p>Name: Passenger</p>
+
+<p>Contact Number: 0000000000</p>
+
+<p>Seat Number: 12</p>
+
+<p>Price per seat: ₹500</p>
+
+<p><b>Total Amount: ₹500</b></p>
+
+</div>
+
+
+<button class="cancel-btn" onclick="cancelSeat()">
+
+Cancel Seat Within 5 Hours
+
+</button>
+
+
+<p class="greeting">
+Have a Wonderful Day!
+</p>
+
+
+</div>
+
+</body>
+</html>
