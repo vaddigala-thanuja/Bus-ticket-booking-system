@@ -15,6 +15,33 @@ display:flex;
 justify-content:center;
 align-items:center;
 }
+  .download-btn{
+margin-top:20px;
+background:#e76f51;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.cancel-btn{
+margin-top:10px;
+background:#e74c3c;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.greeting{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+color:#d35400;
+}
 
 .container{
 background:white;
@@ -100,6 +127,33 @@ color:#d35400;
 </style>
 
 <script>
+  <script>
+
+window.onload=function(){
+
+var booking = JSON.parse(localStorage.getItem("currentBooking"));
+
+if(booking){
+
+document.getElementById("bookingId").innerText = booking.bookingId;
+
+document.getElementById("pname").innerText = booking.name;
+
+document.getElementById("pnumber").innerText = booking.phone;
+
+document.getElementById("seat").innerText = booking.seat;
+
+document.getElementById("amount").innerText = booking.amount;
+
+document.getElementById("date").innerText = booking.date;
+
+document.getElementById("time").innerText = booking.time;
+
+}
+
+}
+
+</script>
 
 function closePopup(){
 
@@ -133,6 +187,43 @@ alert("Your seat has been cancelled.");
 
 
 <div class="container">
+  <div class="container">
+
+<h1>E-Ticket Generated</h1>
+
+<!-- TICKET INFORMATION LAYOUT START -->
+
+<div class="ticket-box">
+
+<h3>Booking Information</h3>
+
+<p><b>Booking ID:</b> <span id="bookingId"></span></p>
+
+<p><b>Date:</b> <span id="date"></span></p>
+
+<p><b>Time:</b> <span id="time"></span></p>
+
+<p><b>Bus Type:</b> Non-AC Bus</p>
+
+<p><b>Bus Number:</b> MH12AB3456</p>
+
+<hr>
+
+<h3>Passenger Details</h3>
+
+<p>Name: <span id="pname"></span></p>
+
+<p>Contact Number: <span id="pnumber"></span></p>
+
+<p>Seat Number: <span id="seat"></span></p>
+
+<p><b>Total Amount: ₹ <span id="amount"></span></b></p>
+
+</div>
+
+<!-- TICKET INFORMATION LAYOUT END -->
+
+</div>
 
 <div class="top-buttons">
   <button onclick="location.href='admin.html'">Admin Information</button>
@@ -151,6 +242,13 @@ alert("Your seat has been cancelled.");
 <h1>E-Ticket Generated</h1>
 
 <div class="ticket-box">
+  <button class="download-btn" onclick="window.print()">
+Download Ticket
+</button>
+
+<button class="cancel-btn">
+Cancel Seat Within 5 Hours
+</button>
 
 <h3>Passenger Details</h3>
 
